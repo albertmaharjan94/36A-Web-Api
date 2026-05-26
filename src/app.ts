@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import personRoutes from "./routes/person.route";
 import { HttpException } from "./exceptions/http-exception";
 import { ApiResponseHelper } from "./utils/apihelper.util";
+import userRoutes from "./routes/user.route";
 
 const app: Application = express();
 app.use(express.json()); // json input
@@ -11,6 +12,7 @@ app.use(
     "/api/persons", // base path/prefix
     personRoutes // router object
 )
+app.use("/api/v1/auth", userRoutes); // user related routes
 
 const PORT: number = 8089;
 
