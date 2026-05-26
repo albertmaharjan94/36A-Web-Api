@@ -6,6 +6,8 @@ import { HttpException } from "../exceptions/http-exception";
 import { z } from "zod";
 import { CreatePersonDTO } from "../dtos/person.dto";
 
+import { PersonService } from "../services/person.service";
+const personService = new PersonService();
 
 export class PersonController {
     async getAllPersons(req: Request, res: Response) {
@@ -43,21 +45,7 @@ export class PersonController {
                 res, z.prettifyError(parsedData.error), 400
             );
         }
-        const { name, age } = parsedData.data; // validated data
-        
-        // const { name, age } = req.body;
-        // if(!name){
-        //     throw new HttpException(400, "Name is required");
-        // }
-        // if(!age){
-        //     throw new HttpException(400, "Age is required");
-        // }
-        const newPerson = {
-            id: dataset.length + 1,
-            name,
-            age
-        }
-        dataset.push(newPerson);
+        const newPerson = personService.createPerson(parsedData.data);
         return ApiResponseHelper.success(
             res, newPerson, "Person created successfully", 201
         );
