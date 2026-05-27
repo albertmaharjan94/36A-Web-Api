@@ -1,10 +1,14 @@
 import { UserModel, IUser } from "../models/user.model";
 
 export interface IUserRepository {
-    getUserById(id: string): Promise<IUser | null>;
     getUserByEmail(email: string): Promise<IUser | null>;
     getUserByUsername(username: string): Promise<IUser | null>;
+    // 5 common mandatory methods for a repository
     createUser(user: Partial<IUser>): Promise<IUser>;
+    getUserById(id: string): Promise<IUser | null>;
+    getAll(): Promise<IUser[]>;
+    update(id: string, user: Partial<IUser>): Promise<IUser | null>;
+    delete(id: string): Promise<boolean>;
 }
 export class UserMongoRepository implements IUserRepository {  
     async getUserById(id: string): Promise<IUser | null> {
@@ -22,5 +26,17 @@ export class UserMongoRepository implements IUserRepository {
     async createUser(user: Partial<IUser>): Promise<IUser> {
         const created = await UserModel.create(user);
         return created;
+    }
+    async getAll(): Promise<IUser[]> {
+        const found = await UserModel.find();
+        return found;
+    }
+    async update(id: string, user: Partial<IUser>): Promise<IUser | null> {
+        const updated = await UserModel.findByIdAndUpdate(id, user, { new: true });
+        return updated;
+    }
+    async delete(id: string): Promise<boolean> {
+        const deleted = await UserModel.findByIdAndDelete(id);
+        return !!deleted;
     }
 }
