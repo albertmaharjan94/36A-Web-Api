@@ -3,6 +3,7 @@ import personRoutes from "./routes/person.route";
 import { HttpException } from "./exceptions/http-exception";
 import { ApiResponseHelper } from "./utils/apihelper.util";
 import userRoutes from "./routes/user.route";
+import adminUserRoutes from "./routes/admin/user.route";
 
 const app: Application = express();
 app.use(express.json()); // json input
@@ -13,6 +14,7 @@ app.use(
     personRoutes // router object
 )
 app.use("/api/v1/auth", userRoutes); // user related routes
+app.use("/api/v1/admin/users", adminUserRoutes); // admin relates user CRUD
 
 const PORT: number = 8089;
 
