@@ -8,6 +8,7 @@ const adminUserController = new AdminUserController();
 adminUserRouter.post(
     "/create",
     authorizedMiddleware,
+    adminMiddleware,
     adminUserController.createUser
 );
 // rest of admin user routes
