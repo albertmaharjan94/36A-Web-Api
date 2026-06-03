@@ -4,8 +4,15 @@ import { HttpException } from "./exceptions/http-exception";
 import { ApiResponseHelper } from "./utils/apihelper.util";
 import userRoutes from "./routes/user.route";
 import adminUserRoutes from "./routes/admin/user.route";
+import cors from "cors";
 
 const app: Application = express();
+const corsOptions = {
+    origin: ["*"], // ["http://localhost:3000", "http://example.com"]
+    successStatus: 200
+}
+app.use(cors(corsOptions)); // enable CORS for all routes
+
 app.use(express.json()); // json input
 app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
 
