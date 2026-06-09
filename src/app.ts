@@ -4,6 +4,8 @@ import { HttpException } from "./exceptions/http-exception";
 import { ApiResponseHelper } from "./utils/apihelper.util";
 import userRoutes from "./routes/user.route";
 import adminUserRoutes from "./routes/admin/user.route";
+import uploadRoutes from "./routes/upload.route";
+
 import cors from "cors";
 
 const app: Application = express();
@@ -15,6 +17,7 @@ app.use(cors(corsOptions)); // enable CORS for all routes
 
 app.use(express.json()); // json input
 app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+app.use("/api/v1/file", uploadRoutes); // file upload routes
 
 app.use(
     "/api/persons", // base path/prefix
