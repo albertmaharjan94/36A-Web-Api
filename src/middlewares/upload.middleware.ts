@@ -4,6 +4,7 @@ import path from "path";
 import { Request } from "express";
 import { HttpException } from "../exceptions/http-exception";
 import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, "../../uploads")); // save to uploads dir
     },
     filename: function (req: Request, file, cb) {
-        const fileSuffix = uuid.v4();
+        const fileSuffix = uuidv4(); // unique suffix
         cb(null, fileSuffix + "-" + file.originalname); // unique filename
     }
 });
