@@ -12,6 +12,7 @@ router.post(
             if (!req.file) {
                 throw new HttpException(400, "No file uploaded");
             }
+            req.file.path = "/uploads/" + req.file.filename; // set file path for response
             return ApiResponseHelper.success(
                 res,
                 req.file,

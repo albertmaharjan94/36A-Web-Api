@@ -5,6 +5,7 @@ import { ApiResponseHelper } from "./utils/apihelper.util";
 import userRoutes from "./routes/user.route";
 import adminUserRoutes from "./routes/admin/user.route";
 import uploadRoutes from "./routes/upload.route";
+import path from "path";
 
 import cors from "cors";
 
@@ -17,6 +18,8 @@ app.use(cors(corsOptions)); // enable CORS for all routes
 
 app.use(express.json()); // json input
 app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+app.use("/uploads", express.static(path.join(__dirname, "../uploads"))); 
+// serve static files from uploads directory
 app.use("/api/v1/file", uploadRoutes); // file upload routes
 
 app.use(
