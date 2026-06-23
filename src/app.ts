@@ -6,7 +6,7 @@ import userRoutes from "./routes/user.route";
 import adminUserRoutes from "./routes/admin/user.route";
 import uploadRoutes from "./routes/upload.route";
 import blogRoutes from "./routes/blog.route";
-
+import adminBlogRoutes from "./routes/admin/blog.route";
 import path from "path";
 
 import cors from "cors";
@@ -23,6 +23,8 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 // serve static files from uploads directory
 app.use("/api/v1/file", uploadRoutes); // file upload routes
 app.use("/api/v1/blogs", blogRoutes); // blog related routes
+app.use("/api/v1/admin/blogs", adminBlogRoutes); // admin blog related routes
+
 app.use(
     "/api/persons", // base path/prefix
     personRoutes // router object
