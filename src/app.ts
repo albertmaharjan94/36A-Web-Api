@@ -13,7 +13,7 @@ import cors from "cors";
 
 const app: Application = express();
 const corsOptions = {
-    origin: ["*"], // ["http://localhost:3000", "http://example.com"]
+    origin: "*", // ["http://localhost:3000", "http://example.com"]
     successStatus: 200
 }
 app.use(cors(corsOptions)); // enable CORS for all routes
