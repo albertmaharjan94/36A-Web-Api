@@ -1,3 +1,4 @@
+// src/routes/user.route.ts
 import { UserController } from "../controllers/user.controller";
 import { Router } from "express";
 import { authorizedMiddleware } from "../middlewares/authorized.middleware";
@@ -21,5 +22,16 @@ userRouter.get(
     authorizedMiddleware,  // req.user -> logged in
     userController.whoami
 ); // get logged in user info  
+
+
+userRouter.post(
+    "/request-password-reset",
+    userController.sendResetPasswordEmail
+);
+
+userRouter.post(
+    "/reset-password/:token",
+    userController.resetPassword
+);
 
 export default userRouter;
